@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using ProductsMVC.Contracts;
+using ProductsMVC.Models;
 
 namespace ProductsMVC
 {
@@ -16,6 +18,18 @@ namespace ProductsMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
+            // utilizado para asignar tipos abstractor separados uno por cada peticion
+            // permite registrara un servicio con tiempo de vida scoped
+            services.AddScoped<IRepository, Repository>();
+
+            // se crean cada ves que son solicitados funciona para servicios ligeros
+            // services.AddTransient()
+
+            // singleton se implementa un unica ves
+            // services.AddSingleton();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
